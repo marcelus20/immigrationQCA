@@ -173,7 +173,7 @@ public class Node<T>{
                 return "Node [" +
                         "previous: none " +
                         "element: " + element + "," +
-                        " next: none" + nextNode.getElement() +
+                        " next: " + nextNode.getElement() +
                         "])";
             }else{
                 return null;
