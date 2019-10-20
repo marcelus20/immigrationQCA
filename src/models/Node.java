@@ -1,5 +1,4 @@
 package models;
-
 import java.util.Objects;
 
 /**
@@ -12,10 +11,9 @@ public class Node<T>{
     /**
      * List of attributes
      */
-
-    private final Node nextNode;
-    private final T element;
-    private final Node previousNode;
+    private Node<T> previousNode;
+    private T element;
+    private Node<T> nextNode;
 
 
     /**
@@ -25,7 +23,7 @@ public class Node<T>{
      * @return
      */
     public static <T> Node <T> nodeFactory(T element){
-        return new Node(element);
+        return new Node<T>(element);
     }
 
     /**
@@ -47,7 +45,12 @@ public class Node<T>{
      * @return
      */
     public static <T> Node <T> nodeFactory(Node<T> node){
-        return new Node(node);
+        return new Node<T>(node);
+    }
+
+
+    public static <T> Node <T> nodeFactory(){
+        return new Node<T>();
     }
 
 
@@ -74,26 +77,45 @@ public class Node<T>{
         this.nextNode = null;
     }
 
+
+    private Node(){
+        previousNode = null;
+        element = null;
+        nextNode = null;
+    }
+
     /**
      * Constructor 3
      * @param node
      */
     private Node (Node<T> node){
         previousNode = node.getPreviousNode();
-        element = (T) node.getElement();
+        element = node.getElement();
         nextNode = node.getNextNode();
     }
+
+
+    public Node <T> addNext(Node<T> node){
+        return new Node<>(this, node.getElement(), null);
+    }
+
+    public Node <T> addNext(T element){
+
+        return new Node<>(this, element, null);
+    }
+
+
 
 
     /**
      * getters
      * @return
      */
-    public Node getNextNode() {
+    public Node<T> getNextNode() {
         return nextNode;
     }
 
-    public Node getPreviousNode() {
+    public Node<T> getPreviousNode() {
         return previousNode;
     }
 
@@ -102,30 +124,17 @@ public class Node<T>{
     }
 
 
-    /**
-     * Immutable setters.
-     *
-     * Because attributes are final, in order to change the state of this object you will create a new one stead with
-     * the changed state.
-     *
-     * This avoids side effects of changing something you were not suppose to and improves functional programming by
-     * the use pure functions.
-     *
-     *
-     */
-
-    public Node <T> withNextNode(Node<T> newNextNode){
-        return new Node(previousNode, element, newNextNode);
+    public void setPreviousNode(Node<T> previousNode) {
+        this.previousNode = previousNode;
     }
 
-    public Node <T> withPreviousNode(Node<T> newPreviousNode){
-        return new Node(newPreviousNode, element, nextNode);
+    public void setElement(T element) {
+        this.element = element;
     }
 
-    public Node <T> withElement(T newElement){
-        return new Node<>(previousNode, newElement, nextNode);
+    public void setNextNode(Node<T> nextNode) {
+        this.nextNode = nextNode;
     }
-
 
     /**
      * Overriding equals and hashcode
@@ -151,14 +160,14 @@ public class Node<T>{
     @Override
     public String toString() {
         try{
-            return "Node [" +
+            return "Node:::[" +
                     "previous: " + previousNode.getElement() + "," +
                     "element: " + element + "," +
                     " next: " + nextNode.getElement() + "," +
                     "]";
         }catch (NullPointerException e){
             if(nextNode == null && previousNode == null){
-                return "Node [" +
+                return "Node:::[" +
                         "previous: none, "  +
                         "element: " + element + "," +
                         " next: none"  +
@@ -170,7 +179,7 @@ public class Node<T>{
                         " next: none" +
                         "]";
             }else if (previousNode == null){
-                return "Node [" +
+                return "Node:::[" +
                         "previous: none " +
                         "element: " + element + "," +
                         " next: " + nextNode.getElement() +
