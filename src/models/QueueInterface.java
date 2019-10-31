@@ -1,6 +1,6 @@
 package models;
 
-public interface QueueInterface<E> {
+public interface QueueInterface<T> {
 
     /*
      * This method should return the number o elements
@@ -20,20 +20,20 @@ public interface QueueInterface<E> {
      * of the queue. If the queue is empty it should return
      * null
      */
-    public E front();
+    public T front();
 
     /*
-     * This method should return the object at the rear
+     * This method should return the object at the after
      * of the queue. If the queue is empty it should return
      * null
      */
-    public E rear();
+    public T rear();
 
     /*
-     * This method should add the element to the rear of the
+     * This method should add the element to the after of the
      * queue
      */
-    public void enqueue(E element);
+    public void enqueue (T element);
 
     /*
      * This method should return the object at the top
@@ -41,5 +41,5 @@ public interface QueueInterface<E> {
      * If the queue is empty it should return
      * null
      */
-    public E dequeue();
+    public T dequeue();
 }

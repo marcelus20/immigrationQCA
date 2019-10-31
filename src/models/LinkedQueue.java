@@ -7,7 +7,7 @@ import java.util.NoSuchElementException;
  * Class to keep track of the before (before) and after (after) of a doubly link of nodes
  * @param <T>
  */
-public class LinkedQueue<T> {
+public class LinkedQueue<T> implements QueueInterface<T>{
 
     /**
      * Atribute list: before, after, size
@@ -20,10 +20,28 @@ public class LinkedQueue<T> {
         size = 0;
     }
 
+    @Override
+    public int size() {
+        return getSize();
+    }
+
+    @Override
     public boolean isEmpty(){
         return size == 0;
     }
 
+    @Override
+    public T front() {
+        return head.getElement();
+    }
+
+    @Override
+    public T rear() {
+        return rear.getElement();
+    }
+
+
+    @Override
     public void enqueue(T element){
         if(isEmpty()) head = rear =  new Node<>(element);
         else{
@@ -35,6 +53,7 @@ public class LinkedQueue<T> {
         size++;
     }
 
+    @Override
     public T dequeue(){
         if(isEmpty()) throw new NoSuchElementException();
         T toReturn = head.getElement();
