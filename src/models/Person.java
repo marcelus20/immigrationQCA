@@ -203,13 +203,12 @@ public class Person {
 
     @Override
     public String toString() {
-        return "Person{" +
-                "id='" + id + '\'' +
-                ", firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", dateOfArrival=" + dateOfArrival +
-                ", passportNumber='" + passportNumber + '\'' +
-                ", priority=" + priority +
-                '}';
+        return
+                "\t" + id +
+                "\t" + firstName +
+                "\t" + lastName +
+                "\t" + dateOfArrival +
+                "\t" + passportNumber +
+                "\t" + priority;
     }
 }

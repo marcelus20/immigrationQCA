@@ -15,7 +15,7 @@ public class SystemQ extends LinkedQueue<Person> implements ImmigrationQueue{
     public int search(String id) {
         Node<Person> tempNode = head;
         int index = 0;
-        while (tempNode.getNext() != null){
+        while (tempNode != null){
             if(id.equals(tempNode.getElement().getId())) return index;
             index++;
             tempNode = tempNode.getNext();
@@ -27,7 +27,7 @@ public class SystemQ extends LinkedQueue<Person> implements ImmigrationQueue{
     public int search(Person person) {
         Node<Person> tempNode = head;
         int index = 0;
-        while (tempNode.getNext() != null){
+        while (tempNode != null){
             if(person.getId().equals(tempNode.getElement().getId())) return index;
             index++;
             tempNode = tempNode.getNext();
@@ -41,11 +41,17 @@ public class SystemQ extends LinkedQueue<Person> implements ImmigrationQueue{
         while (tempNode.getNext() != null){
             if(person.getId().equals(tempNode.getElement().getId())){
                 size--;
+                removeNode(tempNode);
                 return tempNode.getElement();
             }
             tempNode = tempNode.getNext();
         }
         throw new NoSuchElementException();
+    }
+
+    private void removeNode(Node<Person> tempNode) {
+        tempNode.getPrevious().setNext(tempNode.getNext());
+        tempNode.getNext().setPrevious(tempNode.getPrevious());
     }
 
     @Override
@@ -54,6 +60,7 @@ public class SystemQ extends LinkedQueue<Person> implements ImmigrationQueue{
         while (tempNode.getNext() != null){
             if(id.equals(tempNode.getElement().getId())){
                 size--;
+                removeNode(tempNode);
                 return tempNode.getElement();
             }
             tempNode = tempNode.getNext();
@@ -65,7 +72,10 @@ public class SystemQ extends LinkedQueue<Person> implements ImmigrationQueue{
     public List<Person> delete(int n) {
         List<Person> personList = new ArrayList<>();
         int counter = 0;
-        if(n <= size){
+        if(n > size){
+            throw new IndexOutOfBoundsException();
+
+        }else if(n <= size){
             while (counter < n){
                 personList.add(rear.getElement());
                 rear = rear.getPrevious();
@@ -73,8 +83,10 @@ public class SystemQ extends LinkedQueue<Person> implements ImmigrationQueue{
                 counter++;
                 if(!isEmpty()) size--;
             }
+            return personList;
+        }else{
+            return null;
         }
-        return personList;
     }
     @Override
     public void add(Person person){
@@ -88,6 +100,7 @@ public class SystemQ extends LinkedQueue<Person> implements ImmigrationQueue{
             }
             tempNode = tempNode.getPrevious();
         }
+
 
     }
 }
