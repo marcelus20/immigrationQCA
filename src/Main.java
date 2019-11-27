@@ -13,8 +13,8 @@ import java.util.stream.Collectors;
 public class Main {
 
     private Main(){
-        //generating fake data. User will be able to choose how many fake data
-        //they want to genereated in a range from 0 to 100.
+//        generating fake data. User will be able to choose how many fake data
+//        they want to genereated in a range from 0 to 100.
         SystemQ queue = genFakeNamesQueue(q->{
             int toDelete = q.size() - Integer
                     .parseInt(Utils
@@ -28,6 +28,14 @@ public class Main {
 
 
         Controller.init(queue);
+
+//        SystemQ q = new SystemQ();
+//        q.add(Person.personFactory("","",new Date(System.currentTimeMillis()), "", Priority.low ));
+//        q.add(Person.personFactory("","",new Date(System.currentTimeMillis()), "", Priority.low ));
+//        q.add(Person.personFactory("","",new Date(System.currentTimeMillis()), "", Priority.low ));
+//        q.add(Person.personFactory("","",new Date(System.currentTimeMillis()), "", Priority.low ));
+//        q.add(Person.personFactory("","",new Date(System.currentTimeMillis()), "", Priority.low ));
+//        q.deleteByPosition(2);
     }
 
 

@@ -37,6 +37,12 @@ public interface ImmigrationQueue <T extends Person>{
      */
     public List<Person> delete (int n);
 
+    /**
+     * Delete by a given position
+     * @param position
+     */
+    public Person deleteByPosition(int position);
+
 
 
     public void add(T person);

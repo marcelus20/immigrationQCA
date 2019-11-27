@@ -12,7 +12,7 @@ public class Menu {
 
         options.add("Enqueue a person");
         options.add("Dequeue a person");
-//        options.add("Delete by giving index");
+        options.add("Delete by giving index/position");
         options.add("Search person");
         options.add("Delete by giving person id");
         options.add("Delete the n last in queue");

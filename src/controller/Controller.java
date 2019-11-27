@@ -47,21 +47,24 @@ public class Controller {
                 DequeuePerson();
                 break;
             case "3":
-                searchPerson();
+                deleteByIndex();
                 break;
             case "4":
-                deleteById();
+                searchPerson();
                 break;
             case "5":
-                DeleteNLast();
+                deleteById();
                 break;
             case "6":
-                seeFirst();
+                DeleteNLast();
                 break;
             case "7":
-                seeLast();
+                seeFirst();
                 break;
             case "8":
+                seeLast();
+                break;
+            case "9":
                 seeWholeQueue();
                 break;
             default: break;
@@ -133,19 +136,20 @@ public class Controller {
         }
     }
 
-//    private void DeleteByIndex() {
-//        System.out.println("Delete someone by index");
-//        System.out.println("Delete someone by their index position in queue");
-//        try{
-//            Person p = queue.delete(input("Enter index of the person to delete"));
-//            System.out.println("One match found. Deleting...");
-//            System.out.println("Person details deleted:");
-//            System.out.println(p);
-//            pause();
-//        }catch (NoSuchElementException e){
-//            System.out.println("Person not found...");
-//        }
-//    }
+    private void deleteByIndex() {
+        System.out.println("Delete someone by index");
+        System.out.println("Delete someone by their index position in queue");
+        try{
+            Person p = queue.deleteByPosition(Integer
+                    .parseInt(input("Enter index of the person to delete", "[0-9]+")));
+            System.out.println("One match found. Deleting...");
+            System.out.println("Person details deleted:");
+            System.out.println(p);
+            pause();
+        }catch (NoSuchElementException e){
+            System.out.println("Person not found...");
+        }
+    }
 
     private void DequeuePerson() {
         System.out.println("Dequeue a person");

@@ -88,6 +88,23 @@ public class SystemQ extends LinkedQueue<Person> implements ImmigrationQueue{
             return null;
         }
     }
+
+    @Override
+    public Person deleteByPosition(int position) {
+        Node<Person> tempNode = head;
+        int counter = 0;
+        while (tempNode.getNext() != null){
+            counter ++;
+            if(counter == position){
+                size--;
+                removeNode(tempNode);
+                return tempNode.getElement();
+            }
+            tempNode = tempNode.getNext();
+        }
+        throw new NoSuchElementException();
+    }
+
     @Override
     public void add(Person person){
         super.enqueue(person);
