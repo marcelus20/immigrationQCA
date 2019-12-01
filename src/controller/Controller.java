@@ -37,38 +37,71 @@ public class Controller {
         for (int i = 0; i < menu.getOptions().size(); i++) {
             System.out.println(i+1+". "+menu.getOptions().get(i));
         }
-        option = input("Choose an option", "[1-"+String.valueOf(menu.getOptions().size())+"]");
+        option = input("Choose an option", menu.getOptions().size()+"|[1-9]");
 
         switch (option){
             case "1":
                 enqueuePerson();
                 break;
             case "2":
-                DequeuePerson();
+                dequeuePerson();
                 break;
             case "3":
-                deleteByIndex();
+                updateInfo();
                 break;
             case "4":
-                searchPerson();
+                deleteByIndex();
                 break;
             case "5":
-                deleteById();
+                searchPerson();
                 break;
             case "6":
-                DeleteNLast();
+                deleteById();
                 break;
             case "7":
-                seeFirst();
+                DeleteNLast();
                 break;
             case "8":
-                seeLast();
+                seeFirst();
                 break;
             case "9":
+                seeLast();
+                break;
+            case "10":
                 seeWholeQueue();
                 break;
             default: break;
         }
+    }
+
+    private void updateInfo() {
+        try{
+            System.out.println("Update person info");
+            Person person = queue.getSpecificPerson(input("Type the id of the person to change data"));
+            Person updated = Person.personFactory(
+                    person.getId(),
+                    input("Type the new name of this person", "[A-Za-z]+"),
+                    input("Type the last name of this person","[A-Za-z]+"),
+                    person.getDateOfArrival(),
+                    input("Enter passport number"),
+                    Priority.valueOf(input("person's priority", Priority.low, Priority.medium, Priority.high))
+            );
+
+            if(!updated.equals(person)){
+                System.out.println("Updated successfuly");
+                queue.set(person.getId(), updated);
+                if(updated.getPriority()!= person.getPriority()){
+                    System.out.println("Priority has changed, therefore this person will be rearranged in the queue");
+                    queue.delete(person);
+                    queue.add(updated);
+                }
+            }
+            else System.out.println("Nothing changed");
+
+        }catch (NoSuchElementException e){
+            System.out.println("person with this id not found");
+        }
+        Utils.pause();
     }
 
     private void searchPerson() {
@@ -151,7 +184,7 @@ public class Controller {
         }
     }
 
-    private void DequeuePerson() {
+    private void dequeuePerson() {
         System.out.println("Dequeue a person");
         System.out.println("dequeuing...");
         try{

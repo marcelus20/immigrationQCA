@@ -7,10 +7,6 @@ import java.util.NoSuchElementException;
 public class SystemQ extends LinkedQueue<Person> implements ImmigrationQueue{
 
 
-    public SystemQ() {
-
-    }
-
     @Override
     public int search(String id) {
         Node<Person> tempNode = head;
@@ -36,6 +32,16 @@ public class SystemQ extends LinkedQueue<Person> implements ImmigrationQueue{
     }
 
     @Override
+    public Person getSpecificPerson(String id) {
+        Node<Person> tempNode = head;
+        while (tempNode != null){
+            if(id.equals(tempNode.getElement().getId())) return tempNode.getElement();
+            tempNode = tempNode.getNext();
+        }
+        throw new NoSuchElementException();
+    }
+
+    @Override
     public Person delete(Person person) {
         Node<Person> tempNode = head;
         while (tempNode.getNext() != null){
@@ -50,8 +56,18 @@ public class SystemQ extends LinkedQueue<Person> implements ImmigrationQueue{
     }
 
     private void removeNode(Node<Person> tempNode) {
-        tempNode.getPrevious().setNext(tempNode.getNext());
-        tempNode.getNext().setPrevious(tempNode.getPrevious());
+        try{
+            tempNode.getPrevious().setNext(tempNode.getNext());
+            tempNode.getNext().setPrevious(tempNode.getPrevious());
+        }catch (NullPointerException e){
+            if(tempNode.getPrevious() == null){
+                //head
+                head = head.getNext();
+            }else{
+                //tail
+                rear = rear.getPrevious();
+            }
+        }
     }
 
     @Override
@@ -119,5 +135,19 @@ public class SystemQ extends LinkedQueue<Person> implements ImmigrationQueue{
         }
 
 
+    }
+
+
+    public void set(String id, Person person) {
+        Node<Person> tempNode = head;
+        while (tempNode != null){
+            if(id.equals(tempNode.getElement().getId())) {
+                tempNode.setElement(person);
+                return;
+            }
+            tempNode = tempNode.getNext();
+
+        }
+        throw new NoSuchElementException();
     }
 }

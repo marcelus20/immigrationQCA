@@ -18,6 +18,8 @@ public interface ImmigrationQueue <T extends Person>{
 
     public int search(T person);
 
+    public Person getSpecificPerson(String id);
+
 
     /**
      * At any time, the staff member should have the ability to delete a person from the system by entering
@@ -46,4 +48,5 @@ public interface ImmigrationQueue <T extends Person>{
 
 
     public void add(T person);
+
 }
