@@ -153,6 +153,8 @@ public class Controller {
             System.out.println("Number provided is bigger than queue size...");
         }catch (IllegalFormatConversionException e1){
             e1.printStackTrace();
+        }catch (IndexOutOfBoundsException e2){
+            System.out.println("Number provided is bigger than queue size...");
         }
     }
 
